@@ -6,12 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assign 3</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- import jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="index.js"></script>
   </head>
 
   <body>
-    <div id="game_grid"></div>
+    <div id="timer">
+      <h2>Timer</h2>
+    </div>
+    <div id="game_grid" class="relative">
+      <div
+        id="message"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 z-999 p-6 text-white rounded-xl hidden"
+      >
+        <h1>Winner!</h1>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,9 +1,12 @@
+let difficulty = 3;
+let countdown;
+let timeLeft = 60;
+let isLocked = false;
+
 async function loadPokemon() {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon?&limit=1025`);
   let jsonObj = await response.json();
   //   console.log(jsonObj);
-
-  let difficulty = 3;
 
   const pokemons = [];
   for (let i = 0; i < difficulty; i++) {
@@ -12,6 +15,7 @@ async function loadPokemon() {
     pokemons.push(randomPokemon);
   }
 
+  // Duplicate randomPokemon to be pairs
   const pairedPokemons = [...pokemons, ...pokemons];
   //   console.log(pairedPokemons);
 
@@ -37,6 +41,7 @@ async function loadPokemon() {
   }
 
   setup();
+  timer();
 }
 
 loadPokemon();
@@ -44,7 +49,7 @@ loadPokemon();
 function setup() {
   let firstCard = undefined;
   let secondCard = undefined;
-  let isLocked = false;
+
   $(".card").on("click", function () {
     // prevent user from clicking same card twice
     if ($(this).hasClass("flip") && !secondCard) return;
@@ -62,9 +67,20 @@ function setup() {
         console.log("match");
         $(`#${firstCard.id}`).parent().off("click");
         $(`#${secondCard.id}`).parent().off("click");
+
+        $(`#${firstCard.id}`).parent().addClass("matched");
+        $(`#${secondCard.id}`).parent().addClass("matched");
+
         firstCard = undefined;
         secondCard = undefined;
         isLocked = false;
+
+        if (document.querySelectorAll(".matched").length == difficulty * 2) {
+          showMessage("Winner!");
+
+          clearInterval(countdown);
+          console.log(`${timeLeft} seconds remaining`);
+        }
       } else {
         console.log("no match");
         setTimeout(() => {
@@ -87,4 +103,26 @@ function shuffle(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+function timer() {
+  countdown = setInterval(() => {
+    if (timeLeft <= 0) {
+      isLocked = true;
+      clearInterval(countdown);
+      showMessage("You Lose, Try again!");
+    } else {
+      document.getElementById("timer").textContent =
+        `${timeLeft} seconds remaining`;
+
+      timeLeft--;
+    }
+  }, 1000);
+}
+
+function showMessage(message) {
+  const el = document.getElementById("message");
+  el.textContent = message;
+  el.classList.remove("hidden");
+  el.classList.add("block");
 }
