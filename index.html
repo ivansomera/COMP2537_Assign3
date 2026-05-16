@@ -80,13 +80,24 @@
       </button>
 
       <!-- Grid -->
-      <div id="game_grid" class="relative mt-6 border-2 border-red-500">
-        <div
-          id="message"
-          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 z-999 p-6 text-white rounded-xl hidden"
-        ></div>
+      <div id="game_grid" class="relative mt-6 border-2 border-red-500"></div>
+      <!-- Win/Lose message -->
+      <div
+        id="message"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 z-999 p-6 text-white rounded-xl hidden"
+      ></div>
+      <!-- Power up -->
+      <div class="mt-4 flex justify-center">
+        <button
+          id="powerUpBtn"
+          class="bg-yellow-400 text-black font-bold py-2 px-6 rounded-lg hidden"
+        >
+          Power Up
+        </button>
       </div>
     </div>
+
+    <!-- Light/Dark Mode -->
     <div class="fixed top-4 right-4 z-50 flex gap-2">
       <button
         id="lightMode"

@@ -13,6 +13,7 @@ const medBtn = document.getElementById("medDifficulty");
 const hardBtn = document.getElementById("hardDifficulty");
 const grid = document.getElementById("game_grid");
 const stats = document.getElementById("game-stats");
+const powerBtn = document.getElementById("powerUpBtn");
 
 async function loadPokemon() {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon?&limit=1025`);
@@ -76,9 +77,9 @@ function setup() {
     else {
       secondCard = $(this).find(".front_face")[0];
       isLocked = true;
-      console.log(firstCard, secondCard);
+      //   console.log(firstCard, secondCard);
       if (firstCard.src == secondCard.src) {
-        console.log("match");
+        // console.log("match");
         $(`#${firstCard.id}`).parent().off("click");
         $(`#${secondCard.id}`).parent().off("click");
 
@@ -98,7 +99,7 @@ function setup() {
           clearInterval(countdown);
         }
       } else {
-        console.log("no match");
+        // console.log("no match");
         setTimeout(() => {
           $(`#${firstCard.id}`).parent().toggleClass("flip");
           $(`#${secondCard.id}`).parent().toggleClass("flip");
@@ -136,9 +137,9 @@ function timer() {
 }
 
 function showMessage(message) {
-  const el = document.getElementById("message");
-  el.textContent = message;
-  el.classList.remove("hidden");
+  const msg = document.getElementById("message");
+  msg.textContent = message;
+  msg.classList.remove("hidden");
 }
 
 function updateStatus() {
@@ -163,9 +164,14 @@ function startGame() {
 
     start.classList.add("hidden");
 
+    setTimeout(() => {
+      powerBtn.classList.remove("hidden");
+    }, 3000);
+
     loadPokemon();
   });
 
+  powerBtn.addEventListener("click", powerUp);
   reset.addEventListener("click", resetGame);
 }
 
@@ -182,7 +188,6 @@ function resetGame() {
 }
 
 function setDifficulty() {
-  const card = document.querySelector(".card");
   const buttons = document.querySelectorAll(".btn");
 
   buttons.forEach((button) => {
@@ -233,6 +238,7 @@ function changeDifficulty() {
     document
       .querySelectorAll(".btn")
       .forEach((btn) => btn.classList.remove("active"));
+    powerBtn.classList.add("hidden");
   });
 }
 
@@ -259,6 +265,25 @@ function changeTheme() {
       .querySelectorAll(".btn")
       .forEach((btn) => btn.classList.add("text-white"));
   });
+}
+
+function powerUp() {
+  const cards = document.querySelectorAll(".card");
+  isLocked = true;
+  cards.forEach((card) => {
+    if (!card.classList.contains("matched")) {
+      card.classList.add("flip");
+    }
+  });
+  setTimeout(() => {
+    cards.forEach((card) => {
+      if (!card.classList.contains("matched")) {
+        card.classList.remove("flip");
+      }
+    });
+    isLocked = false;
+    powerBtn.classList.add("hidden");
+  }, 3000);
 }
 
 $(document).ready(function () {
