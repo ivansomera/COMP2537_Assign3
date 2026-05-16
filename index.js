@@ -44,7 +44,7 @@ loadPokemon();
 function setup() {
   let firstCard = undefined;
   let secondCard = undefined;
-  $("#game_grid").on("click", ".card", function () {
+  $(".card").on("click", function () {
     $(this).toggleClass("flip");
 
     if (!firstCard) firstCard = $(this).find(".front_face")[0];
