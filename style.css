@@ -2,23 +2,19 @@ body {
   margin: 0px;
 }
 
-#game_grid {
-  display: flex;
-  flex-wrap: wrap;
-  width: 600px;
-  min-height: 400px;
-}
-
 .card {
-  width: 33.3%;
-  position: relative;
+  width: 100%;
   transition: transform 1s;
   perspective: 1000px;
   transform-style: preserve-3d;
+  background-color: white;
+  border-radius: 50%;
 }
 
 img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .front_face,
@@ -35,14 +31,14 @@ img {
   transform: rotateY(180deg);
 }
 
-.easy .card {
-  width: 33.3%;
+.easy {
+  grid-template-columns: repeat(3, 1fr);
 }
-.medium .card {
-  width: 25%;
+.medium {
+  grid-template-columns: repeat(4, 1fr);
 }
-.hard .card {
-  width: 16.6%;
+.hard {
+  grid-template-columns: repeat(6, 1fr);
 }
 
 #easyDifficulty.active {

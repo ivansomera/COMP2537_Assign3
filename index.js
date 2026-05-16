@@ -54,6 +54,7 @@ async function loadPokemon() {
 
   setup();
   timer();
+  showPowerUp();
 }
 
 function setup() {
@@ -164,10 +165,7 @@ function startGame() {
 
     start.classList.add("hidden");
 
-    setTimeout(() => {
-      powerBtn.classList.remove("hidden");
-    }, 3000);
-
+    showPowerUp();
     loadPokemon();
   });
 
@@ -183,6 +181,7 @@ function resetGame() {
   isLocked = false;
   timeLeft = timeSetting;
   document.getElementById("game_grid").innerHTML = "";
+  powerBtn.classList.add("hidden");
   loadPokemon();
   updateStatus();
 }
@@ -214,7 +213,6 @@ function setDifficulty() {
     timeLeft = 120;
     timeSetting = 120;
     pairsLeft = difficulty;
-    document.getElementById("game_grid").style.minHeight = "440px";
   });
 
   hardBtn.addEventListener("click", (e) => {
@@ -224,7 +222,6 @@ function setDifficulty() {
     timeLeft = 180;
     timeSetting = 180;
     pairsLeft = difficulty;
-    document.getElementById("game_grid").style.minHeight = "400px";
   });
 }
 
@@ -283,6 +280,12 @@ function powerUp() {
     });
     isLocked = false;
     powerBtn.classList.add("hidden");
+  }, 5000);
+}
+
+function showPowerUp() {
+  setTimeout(() => {
+    powerBtn.classList.remove("hidden");
   }, 3000);
 }
 
