@@ -1,6 +1,7 @@
-let difficulty = 3;
+let difficulty = 0;
 let countdown;
-let timeLeft = 60;
+let timeLeft = 0;
+let timeSetting = 0;
 let isLocked = false;
 let clicks = 0;
 let pairsLeft = difficulty;
@@ -143,8 +144,10 @@ function updateStatus() {
 }
 
 function startGame() {
+  setDifficulty();
+
   const start = document.getElementById("startBtn");
-  const difficultyEl = document.getElementById("difficulty");
+  const difficultyEl = document.getElementById("btn-container");
   const stats = document.getElementById("game-stats");
   const reset = document.getElementById("resetBtn");
 
@@ -169,10 +172,40 @@ function resetGame() {
   pairsMatched = 0;
   pairsLeft = difficulty;
   isLocked = false;
-  timeLeft = 60;
+  timeLeft = timeSetting;
   document.getElementById("game_grid").innerHTML = "";
   loadPokemon();
   updateStatus();
+}
+
+function setDifficulty() {
+  const easyBtn = document.getElementById("easyDifficulty");
+  const medBtn = document.getElementById("medDifficulty");
+  const hardBtn = document.getElementById("hardDifficulty");
+  const card = document.querySelector(".card");
+
+  easyBtn.addEventListener("click", () => {
+    document.getElementById("game_grid").className = "easy";
+    difficulty = 3;
+    timeLeft = 160;
+    timeSetting = 160;
+  });
+
+  medBtn.addEventListener("click", (e) => {
+    document.getElementById("game_grid").className = "medium";
+    difficulty = 6;
+    timeLeft = 120;
+    timeSetting = 120;
+    document.getElementById("game_grid").style.minHeight = "440px";
+  });
+
+  hardBtn.addEventListener("click", (e) => {
+    document.getElementById("game_grid").className = "hard";
+    difficulty = 9;
+    timeLeft = 90;
+    timeSetting = 90;
+    document.getElementById("game_grid").style.minHeight = "400px";
+  });
 }
 
 startGame();
