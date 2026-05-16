@@ -44,12 +44,19 @@ loadPokemon();
 function setup() {
   let firstCard = undefined;
   let secondCard = undefined;
+  let isLocked = false;
   $(".card").on("click", function () {
-    $(this).toggleClass("flip");
+    // prevent user from clicking same card twice
+    if ($(this).hasClass("flip") && !secondCard) return;
 
+    // prevent user from clicking card while flipping
+    if (isLocked) return;
+
+    $(this).toggleClass("flip");
     if (!firstCard) firstCard = $(this).find(".front_face")[0];
     else {
       secondCard = $(this).find(".front_face")[0];
+      isLocked = true;
       console.log(firstCard, secondCard);
       if (firstCard.src == secondCard.src) {
         console.log("match");
@@ -57,6 +64,7 @@ function setup() {
         $(`#${secondCard.id}`).parent().off("click");
         firstCard = undefined;
         secondCard = undefined;
+        isLocked = false;
       } else {
         console.log("no match");
         setTimeout(() => {
@@ -64,6 +72,7 @@ function setup() {
           $(`#${secondCard.id}`).parent().toggleClass("flip");
           firstCard = undefined;
           secondCard = undefined;
+          isLocked = false;
         }, 1000);
       }
     }
