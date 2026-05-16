@@ -20,21 +20,21 @@
         >
           <button
             id="easyDifficulty"
-            class="px-7 py-3 font-semibold tracking-wider text-sm border-2 rounded-lg bg-transparent border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
+            class="btn px-7 py-3 font-semibold tracking-wider text-sm border-2 rounded-lg border-green-500 text-green-500 hover:bg-green-500 hover:text-white active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
           >
             Easy
           </button>
 
           <button
             id="medDifficulty"
-            class="px-7 py-3 font-semibold tracking-wider text-sm border-2 rounded-lg bg-transparent border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
+            class="btn px-7 py-3 font-semibold tracking-wider text-sm border-2 rounded-lg border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
           >
             Medium
           </button>
 
           <button
             id="hardDifficulty"
-            class="px-7 py-3 font-semibold tracking-wider text-sm border-2 rounded-lg bg-transparent border-rose-500 text-rose-500 hover:bg-rose-500 hover:text-white active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
+            class="btn px-7 py-3 font-semibold tracking-wider text-sm border-2 rounded-lg border-red-500 text-red-500 hover:bg-red-500 hover:text-white active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
           >
             Hard
           </button>
@@ -55,29 +55,51 @@
               <h3>Total Pairs: <span id="total-pairs">0</span></h3>
             </div>
           </div>
-          <button
-            id="resetBtn"
-            class="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          >
-            Reset
-          </button>
+          <div class="flex gap-6">
+            <button
+              id="resetBtn"
+              class="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+            >
+              Reset
+            </button>
+            <button
+              id="changeBtn"
+              class="bg-orange-500 text-white font-bold py-2 px-4 rounded"
+            >
+              Change Difficulty
+            </button>
+          </div>
         </div>
       </header>
       <!-- Start Button -->
       <button
         id="startBtn"
-        class="bg-red-500 text-white font-bold py-2 px-4 rounded mb-4"
+        class="hidden bg-red-500 text-white font-bold px-6 py-4 rounded mb-4"
       >
         Start
       </button>
 
       <!-- Grid -->
-      <div id="game_grid" class="relative mt-6">
+      <div id="game_grid" class="relative mt-6 border-2 border-red-500">
         <div
           id="message"
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 z-999 p-6 text-white rounded-xl hidden"
         ></div>
       </div>
+    </div>
+    <div class="fixed top-4 right-4 z-50 flex gap-2">
+      <button
+        id="lightMode"
+        class="bg-white text-black border border-gray-300 font-semibold py-1 px-3 rounded-lg text-sm"
+      >
+        Light
+      </button>
+      <button
+        id="darkMode"
+        class="bg-gray-900 text-white font-semibold py-1 px-3 rounded-lg text-sm"
+      >
+        Dark
+      </button>
     </div>
     <script src="index.js"></script>
   </body>

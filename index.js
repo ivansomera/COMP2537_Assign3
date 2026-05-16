@@ -7,6 +7,13 @@ let clicks = 0;
 let pairsLeft = difficulty;
 let pairsMatched = 0;
 
+const start = document.getElementById("startBtn");
+const easyBtn = document.getElementById("easyDifficulty");
+const medBtn = document.getElementById("medDifficulty");
+const hardBtn = document.getElementById("hardDifficulty");
+const grid = document.getElementById("game_grid");
+const stats = document.getElementById("game-stats");
+
 async function loadPokemon() {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon?&limit=1025`);
   let jsonObj = await response.json();
@@ -87,8 +94,7 @@ function setup() {
         updateStatus();
 
         if (document.querySelectorAll(".matched").length == difficulty * 2) {
-          showMessage("Winner!");
-
+          showMessage("You Win!");
           clearInterval(countdown);
         }
       } else {
@@ -105,7 +111,7 @@ function setup() {
   });
 }
 
-// Fisher-Yates algorithm for shuffling
+// Fisher-Yates algorithm for shuffling https://www.geeksforgeeks.org/dsa/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -133,7 +139,6 @@ function showMessage(message) {
   const el = document.getElementById("message");
   el.textContent = message;
   el.classList.remove("hidden");
-  el.classList.add("block");
 }
 
 function updateStatus() {
@@ -146,9 +151,7 @@ function updateStatus() {
 function startGame() {
   setDifficulty();
 
-  const start = document.getElementById("startBtn");
   const difficultyEl = document.getElementById("btn-container");
-  const stats = document.getElementById("game-stats");
   const reset = document.getElementById("resetBtn");
 
   start.addEventListener("click", (e) => {
@@ -179,33 +182,87 @@ function resetGame() {
 }
 
 function setDifficulty() {
-  const easyBtn = document.getElementById("easyDifficulty");
-  const medBtn = document.getElementById("medDifficulty");
-  const hardBtn = document.getElementById("hardDifficulty");
   const card = document.querySelector(".card");
+  const buttons = document.querySelectorAll(".btn");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", function () {
+      buttons.forEach((btn) => btn.classList.remove("active"));
+      this.classList.add("active");
+      start.classList.remove("hidden");
+    });
+  });
 
   easyBtn.addEventListener("click", () => {
-    document.getElementById("game_grid").className = "easy";
+    grid.classList.remove("easy", "medium", "hard");
+    grid.classList.add("easy");
     difficulty = 3;
-    timeLeft = 160;
-    timeSetting = 160;
+    timeLeft = 60;
+    timeSetting = 60;
+    pairsLeft = difficulty;
   });
 
   medBtn.addEventListener("click", (e) => {
-    document.getElementById("game_grid").className = "medium";
+    grid.classList.remove("easy", "medium", "hard");
+    grid.classList.add("medium");
     difficulty = 6;
     timeLeft = 120;
     timeSetting = 120;
+    pairsLeft = difficulty;
     document.getElementById("game_grid").style.minHeight = "440px";
   });
 
   hardBtn.addEventListener("click", (e) => {
-    document.getElementById("game_grid").className = "hard";
+    grid.classList.remove("easy", "medium", "hard");
+    grid.classList.add("hard");
     difficulty = 9;
-    timeLeft = 90;
-    timeSetting = 90;
+    timeLeft = 180;
+    timeSetting = 180;
+    pairsLeft = difficulty;
     document.getElementById("game_grid").style.minHeight = "400px";
   });
 }
 
-startGame();
+function changeDifficulty() {
+  const changeBtn = document.getElementById("changeBtn");
+  changeBtn.addEventListener("click", () => {
+    document.getElementById("btn-container").classList.remove("hidden");
+    document.getElementById("game-stats").classList.add("hidden");
+    clearInterval(countdown);
+    document.getElementById("game_grid").innerHTML = "";
+    document
+      .querySelectorAll(".btn")
+      .forEach((btn) => btn.classList.remove("active"));
+  });
+}
+
+function changeTheme() {
+  const lightTheme = document.getElementById("lightMode");
+  const darkTheme = document.getElementById("darkMode");
+
+  lightTheme.addEventListener("click", () => {
+    document.body.classList.remove("bg-black");
+    grid.classList.remove("border-2", "border-white");
+    grid.classList.add("border-2", "border-red-500");
+    stats.classList.remove("text-white");
+    document
+      .querySelectorAll(".btn")
+      .forEach((btn) => btn.classList.remove("text-white"));
+  });
+
+  darkTheme.addEventListener("click", (e) => {
+    document.body.classList.add("bg-black");
+    grid.classList.remove("border-2", "border-red-500");
+    grid.classList.add("border-2", "border-white");
+    stats.classList.add("text-white");
+    document
+      .querySelectorAll(".btn")
+      .forEach((btn) => btn.classList.add("text-white"));
+  });
+}
+
+$(document).ready(function () {
+  changeDifficulty();
+  changeTheme();
+  startGame();
+});

@@ -3,7 +3,6 @@ body {
 }
 
 #game_grid {
-  border: 2px tomato solid;
   display: flex;
   flex-wrap: wrap;
   width: 600px;
@@ -44,4 +43,19 @@ img {
 }
 .hard .card {
   width: 16.6%;
+}
+
+#easyDifficulty.active {
+  background-color: oklch(72.3% 0.219 149.579);
+  color: white;
+}
+
+#medDifficulty.active {
+  background-color: oklch(62.3% 0.214 259.815);
+  color: white;
+}
+
+#hardDifficulty.active {
+  background-color: oklch(63.7% 0.237 25.331);
+  color: white;
 }
