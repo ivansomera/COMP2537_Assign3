@@ -2,6 +2,9 @@ let difficulty = 3;
 let countdown;
 let timeLeft = 60;
 let isLocked = false;
+let clicks = 0;
+let pairsLeft = difficulty;
+let pairsMatched = 0;
 
 async function loadPokemon() {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon?&limit=1025`);
@@ -44,8 +47,6 @@ async function loadPokemon() {
   timer();
 }
 
-loadPokemon();
-
 function setup() {
   let firstCard = undefined;
   let secondCard = undefined;
@@ -58,6 +59,11 @@ function setup() {
     if (isLocked) return;
 
     $(this).toggleClass("flip");
+
+    clicks++;
+
+    updateStatus();
+
     if (!firstCard) firstCard = $(this).find(".front_face")[0];
     else {
       secondCard = $(this).find(".front_face")[0];
@@ -75,11 +81,14 @@ function setup() {
         secondCard = undefined;
         isLocked = false;
 
+        pairsLeft--;
+        pairsMatched++;
+        updateStatus();
+
         if (document.querySelectorAll(".matched").length == difficulty * 2) {
           showMessage("Winner!");
 
           clearInterval(countdown);
-          console.log(`${timeLeft} seconds remaining`);
         }
       } else {
         console.log("no match");
@@ -112,8 +121,7 @@ function timer() {
       clearInterval(countdown);
       showMessage("You Lose, Try again!");
     } else {
-      document.getElementById("timer").textContent =
-        `${timeLeft} seconds remaining`;
+      document.getElementById("timer").textContent = `${timeLeft}`;
 
       timeLeft--;
     }
@@ -126,3 +134,45 @@ function showMessage(message) {
   el.classList.remove("hidden");
   el.classList.add("block");
 }
+
+function updateStatus() {
+  document.getElementById("clicks").textContent = clicks;
+  document.getElementById("pairs-left").textContent = pairsLeft;
+  document.getElementById("pairs-matched").textContent = pairsMatched;
+  document.getElementById("total-pairs").textContent = difficulty;
+}
+
+function startGame() {
+  const start = document.getElementById("startBtn");
+  const difficultyEl = document.getElementById("difficulty");
+  const stats = document.getElementById("game-stats");
+  const reset = document.getElementById("resetBtn");
+
+  start.addEventListener("click", (e) => {
+    difficultyEl.classList.remove("block");
+    difficultyEl.classList.add("hidden");
+
+    stats.classList.add("block");
+    stats.classList.remove("hidden");
+
+    start.classList.add("hidden");
+
+    loadPokemon();
+  });
+
+  reset.addEventListener("click", resetGame);
+}
+
+function resetGame() {
+  clearInterval(countdown);
+  clicks = 0;
+  pairsMatched = 0;
+  pairsLeft = difficulty;
+  isLocked = false;
+  timeLeft = 60;
+  document.getElementById("game_grid").innerHTML = "";
+  loadPokemon();
+  updateStatus();
+}
+
+startGame();

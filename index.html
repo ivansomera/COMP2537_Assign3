@@ -9,20 +9,59 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- import jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="index.js"></script>
   </head>
 
   <body>
-    <div id="timer">
-      <h2>Timer</h2>
-    </div>
-    <div id="game_grid" class="relative">
-      <div
-        id="message"
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 z-999 p-6 text-white rounded-xl hidden"
-      >
-        <h1>Winner!</h1>
+    <div class="p-6">
+      <header class="flex justify-center gap-24">
+        <div id="difficulty">
+          <h2>Difficulty...</h2>
+        </div>
+
+        <div id="game-stats" class="hidden items-center flex flex-row gap-24">
+          <button
+            id="resetBtn"
+            class="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+          >
+            Reset
+          </button>
+          <div id="timer"></div>
+          <div class="flex gap-6">
+            <div>
+              <div>
+                <h3>Clicks: <span id="clicks">0</span></h3>
+              </div>
+              <div>
+                <h3>Pairs left: <span id="pairs-left">0</span></h3>
+              </div>
+            </div>
+            <div>
+              <div>
+                <h3>Pairs Matched: <span id="pairs-matched">0</span></h3>
+              </div>
+              <div>
+                <h3>Total Pairs: <span id="total-pairs">0</span></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div id="game_grid" class="relative">
+        <button
+          id="startBtn"
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white font-bold py-2 px-4 rounded z-999"
+        >
+          Start
+        </button>
+
+        <div
+          id="message"
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 z-999 p-6 text-white rounded-xl hidden"
+        >
+          <h1>Winner!</h1>
+        </div>
       </div>
     </div>
+    <script src="index.js"></script>
   </body>
 </html>
