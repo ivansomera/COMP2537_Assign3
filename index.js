@@ -14,6 +14,7 @@ const hardBtn = document.getElementById("hardDifficulty");
 const grid = document.getElementById("game_grid");
 const stats = document.getElementById("game-stats");
 const powerBtn = document.getElementById("powerUpBtn");
+const msg = document.getElementById("message");
 
 async function loadPokemon() {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon?&limit=1025`);
@@ -138,7 +139,6 @@ function timer() {
 }
 
 function showMessage(message) {
-  const msg = document.getElementById("message");
   msg.textContent = message;
   msg.classList.remove("hidden");
 }
@@ -182,6 +182,7 @@ function resetGame() {
   timeLeft = timeSetting;
   document.getElementById("game_grid").innerHTML = "";
   powerBtn.classList.add("hidden");
+  msg.classList.add("hidden");
   loadPokemon();
   updateStatus();
 }
@@ -231,6 +232,7 @@ function changeDifficulty() {
     document.getElementById("btn-container").classList.remove("hidden");
     document.getElementById("game-stats").classList.add("hidden");
     clearInterval(countdown);
+    msg.classList.add("hidden");
     document.getElementById("game_grid").innerHTML = "";
     document
       .querySelectorAll(".btn")
@@ -286,7 +288,7 @@ function powerUp() {
 function showPowerUp() {
   setTimeout(() => {
     powerBtn.classList.remove("hidden");
-  }, 3000);
+  }, 5000);
 }
 
 $(document).ready(function () {
