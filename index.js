@@ -131,8 +131,9 @@ function timer() {
       clearInterval(countdown);
       showMessage("You Lose, Try again!");
     } else {
-      document.getElementById("timer").textContent = `${timeLeft}`;
-
+      document.getElementById("timer").textContent = `${timeLeft}s`;
+      document.querySelector(".timerTotal").textContent =
+        `Total time: ${timeSetting}s`;
       timeLeft--;
     }
   }, 1000);
