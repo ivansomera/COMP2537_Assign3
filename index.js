@@ -204,7 +204,7 @@ function setDifficulty() {
     grid.classList.remove("easy", "medium", "hard");
     grid.classList.add("easy");
     difficulty = 3;
-    timeLeft = 0;
+    timeLeft = 60;
     timeSetting = 60;
     pairsLeft = difficulty;
   });
