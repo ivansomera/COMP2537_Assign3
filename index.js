@@ -140,6 +140,7 @@ function timer() {
 }
 
 function showMessage(message) {
+  isLocked = true;
   msg.textContent = message;
   msg.classList.remove("hidden");
 }
@@ -203,7 +204,7 @@ function setDifficulty() {
     grid.classList.remove("easy", "medium", "hard");
     grid.classList.add("easy");
     difficulty = 3;
-    timeLeft = 60;
+    timeLeft = 0;
     timeSetting = 60;
     pairsLeft = difficulty;
   });
